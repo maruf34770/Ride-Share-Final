@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Sharing - Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            width: 360px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 22px;
+        }
+
+        .input-group { margin-bottom: 14px; }
+
+        label {
+            font-size: 13px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        input:focus, select:focus {
+            border-color: #43cea2;
+            box-shadow: 0 0 6px rgba(67,206,162,0.35);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 42px;
+        }
+
+        .toggle-eye {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            color: #aaa;
+        }
+
+        .role-cards {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .role-card {
+            flex: 1;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .role-card .icon { font-size: 22px; display: block; margin-bottom: 4px; }
+
+        .role-card.selected {
+            border-color: #43cea2;
+            background: #f0fdf8;
+            color: #185a9d;
+            font-weight: 600;
+        }
+
+        input[name="role"] { display: none; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #43cea2;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">🚖</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Join our ride sharing platform</p>
+
+    <form action="register.php" method="POST">
+
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone</label>
+            <input type="text" name="phone" placeholder="e.g. 01712345678" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" id="password" placeholder="Create a password" required minlength="6">
+                <span class="toggle-eye" onclick="togglePassword('password', this)">👁️</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Confirm Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Repeat your password" required minlength="6">
+                <span class="toggle-eye" onclick="togglePassword('confirm_password', this)">👁️</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>I am a...</label>
+            <input type="hidden" name="role" id="roleInput" value="rider">
+            <div class="role-cards">
+                <div class="role-card selected" onclick="selectRole('rider', this)">
+                    <span class="icon">🙋</span> Rider
+                </div>
+                <div class="role-card" onclick="selectRole('driver', this)">
+                    <span class="icon">🚗</span> Driver
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="index.php">Login</a>
+    </div>
+</div>
+
+<script>
+    function selectRole(role, el) {
+        document.getElementById('roleInput').value = role;
+        document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function togglePassword(fieldId, icon) {
+        const field = document.getElementById(fieldId);
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.textContent = '🙈';
+        } else {
+            field.type = 'password';
+            icon.textContent = '👁️';
+        }
+    }
+
+    // Client-side password match check
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const pw  = document.getElementById('password').value;
+        const cpw = document.getElementById('confirm_password').value;
+        if (pw !== cpw) {
+            e.preventDefault();
+            alert('❌ Passwords do not match!');
+        }
+    });
+</script>
+
+</body>
+</html>
